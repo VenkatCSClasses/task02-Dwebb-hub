@@ -1,0 +1,123 @@
+withdraw tests:
+- name: Valid amount between 0 and balance
+  input: BankAccount with balance of 200, withdrawal amount of 100
+  post condition: balance is now at 100
+  
+- name: Valid amount equal to balance
+  input: BankAccount with balance of 200, withdrawal amount of 200
+  post condition: balance is now at 0
+
+- name: invalid amount equal to 0
+  input: BankAccount with balance of 200, withdrawal amount of 0
+  output: throw error
+
+- name: invalid amount; negative
+  input: BankAccount with balance of 200, withdrawal amount of -50
+  output: throw error
+
+- name: invalid withdrawal; larger than balance
+  input: BankAccount with balance of 200, withdrawal amount of 500
+  output: throw error
+
+- name: invalid withdrawal; 3 decimals
+  input: BankAccount with balance of 200, withdrawal amount of 500.001
+  output: throw error
+
+
+deposit tests:
+- name: valid deposit
+  input: valid BankAccount, deposit of 100
+  post condition: BankAccount balance +100
+
+- name: invalid deposit, negative
+  input: valid BankAccount, deposit of 100
+  post condition: BankAccount balance +100
+
+- name: invalid deposit, 3 decimals
+  input: valid BankAccount, deposit of 100.001
+  output: throw error
+
+
+constructor tests:
+- name: valid constructor
+  input: "a@b.com", 2000
+  post condition: bank account is successfully created
+
+- name: invalid email
+  input: "adddcom", 2000
+  output: throw error
+  
+- name: invalid balance
+  input: "a@b.com", -2000
+  output: throw error
+
+
+transfer tests:
+- name: valid transfer
+  input: on a valid bank account with 200, transfer 100 to other valid bank account
+  post condition: using getBalance, transfer was successful
+
+- name: valid transfer, edge case
+  input: on a valid bank account with 200, transfer 200 to other valid bank account
+  post condition: using getBalance, transfer was successful
+
+- name: invalid transfer, insufficient funds
+  input: on a valid bank account with 200, transfer 300 to other valid bank account
+  output: throw error
+
+- name: invalid transfer, invalid destination
+  input: on a valid bank account with 200, transfer 100 to invalid bank account
+  output: throw error
+
+- name: invalid transfer amount
+  input: on a valid bank account with 200, transfer -300 to other valid bank account
+  output: throw error
+
+- name: invalid transfer amount
+  input: on a valid bank account with 200, transfer 100.001 to other valid bank account
+  output: throw error
+
+
+
+isEmailValid tests:
+- name: valid email
+  input: "a@b.com"
+  output: return true
+
+- name: valid email
+  input: "a@bb.cc"
+  output: return true
+
+- name: invalid email, empty
+  input: ""
+  output: return false
+
+- name: invalid email, no @ sign
+  input: "testemail.com"
+  output: return false
+
+- name: invalid email, invalid domain
+  input: "jbob@jimbo.h"
+  output: return false
+
+
+isAmountValid tests:
+- name: valid amount
+  input: 100
+  output: return true
+
+- name: valid amount
+  input: 1000.05
+  output: return true
+
+- name: valid amount
+  input: 1000.1
+  output: return true
+
+- name: invalid amount, 3 decimal places
+  input: 100.001
+  output: return false
+
+- name: invalid amount, negative
+  input: -100
+  output: return false
