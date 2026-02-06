@@ -18,3 +18,8 @@ Key Functions:
 - Withdraw(float amount): Removes the given amount from the account balance if the amount is valid, otherwise throws an error
 - Deposit(float amount): Adds the given amount to the account balance if it is valid
 - Transfer(float amount, BankAccount destination): Takes an amount and, if it is valid, removes it from the current account and deposits it to the destination account
+- getBalance(): returns the account's balance
+- getEmail(): returns the account's email
+- isAmountValid(int amount): determines if the amount is valid, aka if it is positive and has less than 3 decimal places
+- isEmailValid(String email): determines if the email is valid based on the general guidelines 
+ 
