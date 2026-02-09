@@ -1,4 +1,3 @@
-import java.math.BigDecimal;
 
 /**
  * Simple bank account with basic validation for email and monetary amounts.
@@ -107,8 +106,9 @@ public class BankAccount {
         if (amount < 0) {
             return false;
         }
-        BigDecimal bd = BigDecimal.valueOf(amount).stripTrailingZeros();
-        int scale = bd.scale();
-        return scale <= 2;
+        // Scale to cents and allow small floating-point error
+        float scaled = amount * 100.0f;
+        float rounded = Math.round(scaled);
+        return Math.abs(scaled - rounded) < 0.0001f;
     }
 }
