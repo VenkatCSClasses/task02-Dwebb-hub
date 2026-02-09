@@ -9,7 +9,7 @@ Design Principles:
 4. Any invalid amounts or emails will throw proper errors
 
 Output:
-1. Generate the minimal files required
+1. Generate the minimal files required: BankAccountTest.java, BankAccount.java, and README.md
 2. Other functions may be used to facilitate the implementation of the key functions, but there should be no other methods involving the bank account itself
 3. Document functions and tests with comments: for tests, outline the equivalence classes and/or boundary cases
 
